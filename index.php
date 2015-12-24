@@ -80,7 +80,7 @@
     <p><?php echo str_replace(array('%dayname%','%date%','%fulltime%'),array($tag,$datum,$zeit),DATESTRING) ?></p>
 
     <form action="index.php" method="post">
-      Du bist in &nbsp;
+      <?php echo YOUAREIN ?>
       <select name="newort">
         <option value="muenchen" <?php if($_SESSION["ort"] == "muenchen"){?>selected="selected"<?php }?>>M&uuml;nchen</option>
         <option value="albstadt" <?php if($_SESSION["ort"] == "albstadt"){?>selected="selected"<?php }?>>Albstadt</option>
@@ -92,19 +92,19 @@
     <h2><?php echo SUNRISE.'/'.SUNSET ?></h2>
     <table>
       <tr>
-        <td width="60">&nbsp;</td>
-        <td width="70"><b><?php echo TODAY ?></b></td>
-        <td width="70"><b><?php echo TOMORROW ?></b></td>
+        <td>&nbsp;</td>
+        <td><b><?php echo TODAY ?></b></td>
+        <td><b><?php echo TOMORROW ?></b></td>
       </tr>
       <tr>
         <td><?php echo SUNRISE ?></td>
-        <td><?php echo date("H:i",$sunrisetoday) ?> Uhr</td>
-        <td><?php echo date("H:i",$sunrisetomorrow) ?> Uhr</td>
+        <td><?php echo date("H:i",$sunrisetoday) ?></td>
+        <td><?php echo date("H:i",$sunrisetomorrow) ?></td>
       </tr>
       <tr>
         <td><?php echo SUNSET ?></td>
-        <td><?php echo date("H:i",$sunsettoday) ?> Uhr</td>
-        <td><?php echo date("H:i",$sunsettomorrow) ?> Uhr</td>
+        <td><?php echo date("H:i",$sunsettoday) ?></td>
+        <td><?php echo date("H:i",$sunsettomorrow) ?></td>
       </tr>
     </table>
   </div>

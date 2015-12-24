@@ -10,6 +10,7 @@
   * 
   **/
   
+  require('lang/language_de.php');
   
   if ($_REQUEST["event"] == "newort"){
 		$_SESSION["ort"] = $_REQUEST["newort"];
@@ -34,76 +35,69 @@
 	$sunrisetomorrow = date_sunrise($timestamp+86400, SUNFUNCS_RET_TIMESTAMP, $lat, $long, ini_get("date.sunrise_zenith"), 1);
 	$sunsettomorrow = date_sunset($timestamp+86400, SUNFUNCS_RET_TIMESTAMP, $lat, $long, ini_get("date.sunrise_zenith"), 1);
 	if ($timestamp >= $sunsettoday){
-		$essen = true;
+		$status = EAT;
 		$rest = $sunrisetomorrow - $timestamp;
 	}
 	if ($timestamp < $sunrisetoday){
-		$essen = true;
+		$status = EAT;
 		$rest = $sunrisetoday - $timestamp;
 	}
 	if ($timestamp >= $sunrisetoday && $timestamp < $sunsettoday){
-		$essen = false;
+		$status = FAST;
 		$rest = $sunsettoday - $timestamp;
 	}
 	$min = $rest/60;
 	$resth = sprintf("%02d",floor($min/60));
 	$restmin = sprintf("%02d",$min%60);
-	$restsek = sprintf("%02d",$rest-(($resth*3600)+($restmin*60))); 
+	$restsek = sprintf("%02d",$rest-(($resth*3600)+($restmin*60)));
+  $restzeit = $resth.':'.$restmin.':'.$restsek;
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="robots" content="index, follow" />
-	<meta name="description" content="Ramadan" />
-	<meta name="keywords" content="Ramadan" />
+  <meta charset="UTF-8">
+	<title><?php echo TITLE ?></title>
+	<meta name="description" content="<?php echo DESCRIPTION ?>" />
+	<meta name="keywords" content="<?php echo KEYWORDS ?>" />
 	<meta name="author" content="Martin Pl&ouml;tz" />
-	<meta http-equiv="expires" content="0" />
-	<meta http-equiv="pragma" content="no-cache" />
-	<title>Ramadan - Wann darf ich essen?</title>
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<!-- ICON -->
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 </head>
 <body>
-<br />
-<?php if ($essen){?>
-	<span class="essen">Essen</span>
-<?php }else{ ?>
-	<span class="fasten">Fasten</span>
-<?php } ?>
-<br /><br />
-<span class="<?php if ($essen){echo "gruen";}else{echo "rot";}?>"><b>noch <?php echo $resth.":".$restmin.":".$restsek ?></b></span>
-<br /><br />
-Heute ist <?php echo $tag ?>, der <?php echo $datum ?>.<br />
-Es ist <?php echo $zeit ?> Uhr.<br />
-<form action="index.php" method="post">
-	Du bist in &nbsp;
-	<select name="newort">
-		<option value="muenchen" <?php if($_SESSION["ort"] == "muenchen"){?>selected="selected"<?php }?>>M&uuml;nchen</option>
-		<option value="albstadt" <?php if($_SESSION["ort"] == "albstadt"){?>selected="selected"<?php }?>>Albstadt</option>
-	</select>
-	<input type="hidden" name="event" value="newort" /><br /><br />
-	<input type="submit" value="Aktualisieren" style="width:150px" />
-</form>
-<br />
-Sonnenauf- und Sonnenuntergang:
-<br /><br />
-<table>
-	<tr>
-		<td width="60">&nbsp;</td>
-		<td width="70"><b>Heute</b></td>
-		<td width="70"><b>Morgen</b></td>
-	</tr>
-	<tr>
-		<td>Sunrise</td>
-		<td><?php echo date("H:i",$sunrisetoday) ?> Uhr</td>
-		<td><?php echo date("H:i",$sunrisetomorrow) ?> Uhr</td>
-	</tr>
-	<tr>
-		<td>Sunset</td>
-		<td><?php echo date("H:i",$sunsettoday) ?> Uhr</td>
-		<td><?php echo date("H:i",$sunsettomorrow) ?> Uhr</td>
-	</tr>
-</table>
+  <div>
+    <h1><?php echo $status ?></h1>
+    <h2><?php echo STILL.' '.$restzeit.' '.HOURS ?></h2>
+    
+    <p><?php echo str_replace(array('%dayname%','%date%','%fulltime%'),array($tag,$datum,$zeit),DATESTRING) ?></p>
+
+    <form action="index.php" method="post">
+      Du bist in &nbsp;
+      <select name="newort">
+        <option value="muenchen" <?php if($_SESSION["ort"] == "muenchen"){?>selected="selected"<?php }?>>M&uuml;nchen</option>
+        <option value="albstadt" <?php if($_SESSION["ort"] == "albstadt"){?>selected="selected"<?php }?>>Albstadt</option>
+      </select>
+      <input type="hidden" name="event" value="newort" /><br /><br />
+      <input type="submit" value="Aktualisieren" style="width:150px" />
+    </form>
+
+    <h2><?php echo SUNRISE.'/'.SUNSET ?></h2>
+    <table>
+      <tr>
+        <td width="60">&nbsp;</td>
+        <td width="70"><b><?php echo TODAY ?></b></td>
+        <td width="70"><b><?php echo TOMORROW ?></b></td>
+      </tr>
+      <tr>
+        <td><?php echo SUNRISE ?></td>
+        <td><?php echo date("H:i",$sunrisetoday) ?> Uhr</td>
+        <td><?php echo date("H:i",$sunrisetomorrow) ?> Uhr</td>
+      </tr>
+      <tr>
+        <td><?php echo SUNSET ?></td>
+        <td><?php echo date("H:i",$sunsettoday) ?> Uhr</td>
+        <td><?php echo date("H:i",$sunsettomorrow) ?> Uhr</td>
+      </tr>
+    </table>
+  </div>
 </body>
 </html>

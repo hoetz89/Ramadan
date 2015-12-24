@@ -6,6 +6,7 @@
   define('EAT',         'Essen');
   define('FAST',        'Fasten');
   define('STILL',       'noch');
+  define('HOURS',       'Stunden');
   define('DATESTRING',  'Heute ist %dayname%, der %date%. Es ist %fulltime% Uhr.');
   define('YOUAREIN',    'Du bist in');
   define('SUNRISE',     'Sonnenaufgang');

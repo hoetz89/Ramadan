@@ -2,6 +2,9 @@
   /**
   * ramadan.hoetz.com - Fasten oder nicht Fasten (Sunrise - Sunset)
   * Version 1.0
+  *
+  * @requires jQuery
+  * @requires Bootstrap
   * 
   * Copyright (c) 2015 Martin Plötz
   * Examples and docs at: http://tablesorter.com
@@ -62,6 +65,12 @@
 	<meta name="author" content="Martin Pl&ouml;tz" />
 	<!-- ICON -->
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
   <div>

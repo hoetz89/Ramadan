@@ -73,7 +73,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div>
+  <div class="container jumbotron">
     <h1><?php echo $status ?></h1>
     <h2><?php echo STILL.' '.$restzeit.' '.HOURS ?></h2>
     
